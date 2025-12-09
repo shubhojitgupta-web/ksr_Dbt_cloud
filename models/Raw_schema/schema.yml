@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: data_feed
+    schema: RAW_SCHEMA
+    database: DBT_DB
+    tables:
+      - name: cust
+        identifier: RAW_CUSTOMER
+      - name: orders
+        identifier: RAW_ORDERS
