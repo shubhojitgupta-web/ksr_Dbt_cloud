@@ -46,13 +46,16 @@ models:
   customer_product_delivery:
     # Applies to all files under models/customer_product_delivery/raw
     raw:
+      +database: DBT_LABS
       +schema: RAW_SCHEMA
       +materialized: table
     # Applies to all files under models/customer_product_delivery/silver
     silver:
+      +database: DBT_LABS
       +schema: SILVER_SCH
       +materialized: table
     # Applies to all files under models/customer_product_delivery/gold
     gold:
+      +database: DBT_LABS
       +schema: CLEAN_SCHEMA
       +materialized: view
