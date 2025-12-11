@@ -1,10 +1,3 @@
-{{
-    config(
-        materialized='incremental',
-        incremental_strategy='append'
-    )
-}}
-
 select 
         CUSTOMER_ID,
         FULL_NAME,

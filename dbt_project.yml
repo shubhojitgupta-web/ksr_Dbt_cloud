@@ -42,10 +42,25 @@ clean-targets: # directories to be removed by `dbt clean`
 
 models:
   dbt_incremental_strategy:
-    raw_schema:
+
+    append:            # → models/dbt_incremental_strategy/append/
       +database: DBT_DB
       +schema: RAW_SCHEMA
-      +generate_schema_name: generate_schema_name
+      +materialized: incremental
+      +incremental_strategy: append
+    merge:              # → models/dbt_incremental_strategy/merge/
+      +database: DBT_DB
+      +schema: RAW_SCHEMA
+      +materialized: incremental
+      +incremental_strategy: merge
+      +unique_key: CUSTOMER_ID
+      +incremental_predicates: - "REGISTERED_ON >= dateadd(day, -30, current_date)"
+    delete_insert:      # → models/dbt_incremental_strategy/delete_insert/
+      +database: DBT_DB
+      +schema: RAW_SCHEMA
+      +materialized: incremental
+      +incremental_strategy: delete+insert
+      +unique_key: CUSTOMER_ID
   customer_product_delivery:
     # Applies to all files under models/customer_product_delivery/raw
     raw:
