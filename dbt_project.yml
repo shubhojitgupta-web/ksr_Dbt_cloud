@@ -2,7 +2,7 @@
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
 # name: 'my_new_project'
-name: my_projects
+name: dbt_incremental_strategy
 version: "1.0.0"
 config-version: 2
 
@@ -45,32 +45,18 @@ models:
     +database: DBT_DB
     +schema: RAW_SCHEMA
     append:
-      customer_append:                     # models/dbt_incremental_strategy/append/
+      customer_append:
         +materialized: incremental
         +incremental_strategy: append
-    merge:                      # models/dbt_incremental_strategy/merge/
-      +materialized: incremental
-      +incremental_strategy: merge
-      +unique_key: CUSTOMER_ID
-      +incremental_predicates:
-        - "REGISTERED_ON >= dateadd(day, -30, current_date)"
-    delete_insert:              # models/dbt_incremental_strategy/delete_insert/
-      +materialized: incremental
-      +incremental_strategy: delete+insert
-      +unique_key: CUSTOMER_ID
-  customer_product_delivery:
-    # Applies to all files under models/customer_product_delivery/raw
-    raw:
-      +database: DBT_LABS
-      +schema: RAW_SCHEMA
-      +materialized: table
-    # Applies to all files under models/customer_product_delivery/silver
-    silver:
-      +database: DBT_LABS
-      +schema: SILVER_SCH
-      +materialized: table
-    # Applies to all files under models/customer_product_delivery/gold
-    gold:
-      +database: DBT_LABS
-      +schema: CLEAN_SCHEMA
-      +materialized: view
+    merge:
+      customer_merge:
+        +materialized: incremental
+        +incremental_strategy: merge
+        +unique_key: CUSTOMER_ID
+        +incremental_predicates:
+          - "REGISTERED_ON >= dateadd(day, -30, current_date)"
+    delete_insert:
+      customer_delete_insert:
+        +materialized: incremental
+        +incremental_strategy: delete+insert
+        +unique_key: CUSTOMER_ID
