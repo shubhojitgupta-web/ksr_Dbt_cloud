@@ -9,3 +9,5 @@ sources:
         identifier: CUSTOMER_MASTER
       - name: cust_ord
         identifier: CUSTOMER_ORDERS
+      - name: cust_tbl
+        identifier: cust_tbl
