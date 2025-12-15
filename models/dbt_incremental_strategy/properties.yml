@@ -7,3 +7,5 @@ sources:
     tables:
       - name: cust
         identifier: CUSTOMER_MASTER
+      - name: cust_ord
+        identifier: CUSTOMER_ORDERS

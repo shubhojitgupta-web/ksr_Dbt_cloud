@@ -48,6 +48,12 @@ models:
     # Applies to all models inside models/dbt_incremental_strategy/
     +materialized: incremental
 
+    customer_orders_join:
+      +incremental_strategy: merge
+      +unique_key: ORDER_ID
+      +incremental_predicates:
+        - "ORDER_DATE >= dateadd(day, -30, current_date)"
+        
     # Optional: per-model overrides
     customer_append:
       +incremental_strategy: append
