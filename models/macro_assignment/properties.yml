@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: RETAIL
+    database: DBT_DB
+    schema: RETAIL_DATA
+    tables:
+      - name: RET_CUST
+        identifier: CUSTOMERS
+      - name: RET_ORD
+        identifier: ORDERS
