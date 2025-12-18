@@ -1,0 +1,1 @@
+SELECT * FROM {{ source('RETAIL', 'RET_CUST') }} WHERE {{age_filter('AGE')}}

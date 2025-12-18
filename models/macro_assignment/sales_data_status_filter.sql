@@ -1,0 +1,1 @@
+SELECT * FROM {{ source('RETAIL', 'RET_ORD') }} WHERE {{status_filter('IS_RETURNED')}}
