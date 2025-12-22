@@ -80,11 +80,11 @@ seeds:
           CURRENT_TIMESTAMP,
           'SUCCESS',
           'Seed loaded via dbt seed'
-          FROM SUPPLY_CHAIN.DEV__RAW.WAREHOUSE_LOCATIONS
+          FROM {{ this }}
           WHERE NOT EXISTS (
           SELECT 1
           FROM SUPPLY_CHAIN.AUDIT.MODEL_EXECUTION_LOG
           WHERE model_name = 'warehouse_locations'
-            AND row_count = (SELECT COUNT(*) FROM SUPPLY_CHAIN.DEV__RAW.WAREHOUSE_LOCATIONS))
+            AND row_count = (SELECT COUNT(*) FROM {{ this }}))
 
 
