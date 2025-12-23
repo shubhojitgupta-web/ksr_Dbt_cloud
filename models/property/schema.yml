@@ -105,5 +105,5 @@ models:
     tests:
       - test_record_count_match:
           model_a: Customer_order
-          model_b: customer_order_silver
+          model_b: customer_order_snapshot
           tags: ['Silver_QA']
