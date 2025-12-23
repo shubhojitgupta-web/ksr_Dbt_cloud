@@ -21,6 +21,7 @@ models:
         tests:
           - not_null
           - date_validation:
+              max_years_old: 5
               tags: ['Raw_QA']
       - name: CUSTOMER_EMAIL
         tags: ['Raw_QA']
@@ -95,3 +96,14 @@ models:
         tests:
           - accepted_values:
               values: ['Petrol', 'Diesel', 'Electric', 'Hybrid']
+  - name: customer_order_snapshot
+    tests:
+      - no_special_chars:
+          column_names: ["customer_name", "city_name", "item_name", "fuel_type"]
+          tags: ['Silver_QA']
+  - name: customer_order_silver
+    tests:
+      - test_record_count_match:
+          model_a: Customer_order
+          model_b: customer_order_silver
+          tags: ['Silver_QA']

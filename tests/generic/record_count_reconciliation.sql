@@ -1,22 +1,16 @@
 {% test record_count_reconciliation(
-    source_model,
-    target_model,
-    expected_diff=0
+    model_a,
+    model_b
 ) %}
 
-WITH source_count AS (
-    SELECT COUNT(*) AS cnt FROM {{ ref(source_model) }}
+WITH model_a_ct AS (
+    SELECT COUNT(*) AS cnt FROM {{ ref(model_a) }}
 ),
-target_count AS (
-    SELECT COUNT(*) AS cnt FROM {{ ref(target_model) }}
+model_b_ct AS (
+    SELECT COUNT(*) AS cnt FROM {{ ref(model_b) }}
 )
-
-SELECT
-    source_count.cnt AS source_count,
-    target_count.cnt AS target_count,
-    (source_count.cnt - target_count.cnt) AS diff
-FROM source_count
-CROSS JOIN target_count
-WHERE ABS(source_count.cnt - target_count.cnt) != {{ expected_diff }}
+SELECT *
+FROM model_a_ct, model_b_ct
+WHERE ABS(model_a_ct.cnt - model_b_ct.cnt) > 0
 
 {% endtest %}
