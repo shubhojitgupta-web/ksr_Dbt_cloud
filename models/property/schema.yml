@@ -1,0 +1,97 @@
+version: 2
+
+models:
+  - name: Customer_order
+    tests:
+      - duplicate_check:
+          column_names: ['order_id', 'customer_id']
+          tags: ['Raw_QA']
+    columns:
+      - name: order_id
+        tags: ['Raw_QA']
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        tags: ['Raw_QA']
+        tests:
+          - not_null
+      - name: order_date
+        tags: ['Raw_QA']
+        tests:
+          - not_null
+          - date_validation:
+              tags: ['Raw_QA']
+      - name: CUSTOMER_EMAIL
+        tags: ['Raw_QA']
+        tests:
+          - not_null
+          - valid_email_format:
+              severity: warn
+              tags: ['Raw_QA']
+      - name: customer_phone
+        tags: ['Raw_QA']
+        tests:
+          - not_null
+          - column_length_is:
+              expected_length: 10
+              tags: ['Raw_QA'] 
+      - name: quantity
+        tags: ['Raw_QA']
+        tests:
+          - not_null
+          - numerical_validation:
+              tags: ['Raw_QA']
+      - name: unit_price
+        tags: ['Raw_QA']
+        tests:
+          - not_null
+          - numerical_validation:
+              tags: ['Raw_QA']
+      - name: item_id
+        tags: ['Raw_QA']
+        tests:
+          - relationships:
+              to: ref('item_inventory')
+              field: item_id
+              tags: ['Raw_QA']
+      - name: warehouse_name
+        tags: ['Raw_QA']
+        tests:
+          - relationships:
+              to: ref('warehouse_locations')
+              field: warehouse_name
+              tags: ['Raw_QA']
+      - name: fuel_type
+        tags: ['Raw_QA']
+        tests:
+          - accepted_values:
+              values: ['Petrol', 'Diesel', 'Electric', 'Hybrid']
+
+  - name: item_inventory
+    tests:
+      - duplicate_check:
+          column_names: ['item_id', 'item_name']
+          tags: ['Raw_QA']
+    columns:
+      - name: item_id
+        tags: ['Raw_QA']
+        tests:
+          - unique
+          - not_null
+      - name: item_name
+        tags: ['Raw_QA']
+        tests:
+          - not_null
+      - name: category
+        tags: ['Raw_QA']
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['SUV', 'Sedan', 'Hatchback', 'Truck']
+              severity: warn
+      - name: fuel_type
+        tags: ['Raw_QA']
+        tests:
+          - accepted_values:
+              values: ['Petrol', 'Diesel', 'Electric', 'Hybrid']
