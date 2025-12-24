@@ -86,5 +86,10 @@ seeds:
           FROM SUPPLY_CHAIN.AUDIT.MODEL_EXECUTION_LOG
           WHERE model_name = 'warehouse_locations'
             AND row_count = (SELECT COUNT(*) FROM {{ this }}))
-
+snapshots:
+  my_new_project:
+    customer:
+      +schema: silver
+    inventory:
+      +schema: silver
 

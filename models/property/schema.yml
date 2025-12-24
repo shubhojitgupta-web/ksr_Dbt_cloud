@@ -101,9 +101,10 @@ models:
       - no_special_chars:
           column_names: ["customer_name", "city_name", "item_name", "fuel_type"]
           tags: ['Silver_QA']
-  - name: customer_order_silver
-    tests:
-      - test_record_count_match:
+      - record_count_reconciliation:
           model_a: Customer_order
           model_b: customer_order_snapshot
+          tags: ['Silver_QA']
+      - not_null:
+          column_name: ['order_id', 'customer_id', 'order_date', 'quantity', 'unit_price']
           tags: ['Silver_QA']

@@ -1,7 +1,4 @@
-{% test record_count_reconciliation(
-    model_a,
-    model_b
-) %}
+{% test record_count_reconciliation(model, model_a,model_b) %}
 
 WITH model_a_ct AS (
     SELECT COUNT(*) AS cnt FROM {{ ref(model_a) }}
