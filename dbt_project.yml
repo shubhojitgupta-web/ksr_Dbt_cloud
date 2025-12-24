@@ -89,4 +89,4 @@ snapshots:
     customer:
       +schema: silver
     inventory:
-      +schema:  silver
+      +schema: silver
