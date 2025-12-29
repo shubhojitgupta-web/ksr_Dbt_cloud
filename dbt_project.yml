@@ -50,6 +50,7 @@ seeds:
   my_new_project:  # Replace with your actual dbt project name
     warehouse_locations:
       +schema: raw
+      +tags: [raw] 
       +quote_columns: false
       +column_types:
         city_name: VARCHAR(50)
@@ -84,9 +85,13 @@ seeds:
                 SELECT COUNT(*) FROM {{ generate_schema_name('raw', this) }}.WAREHOUSE_LOCATIONS
               )
           )
+
+
 snapshots:
   my_new_project:
     customer:
       +schema: silver
+      +tags: [silver] 
     inventory:
       +schema: silver
+      +tags: [silver] 
